@@ -10,5 +10,5 @@ class Entity:
         self.lvl  = lvl
     
     def dmg(self,entity):
-        self.hp = self.hp-entity.str
-        reprint(f"{self.name} a pris {entity.str} dégas !")
+        entity.hp = entity.hp-self.str
+        reprint(f"{entity.name} a pris {self.str} dégas !")

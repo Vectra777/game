@@ -1,4 +1,5 @@
-import os
+from os import system
+import platform
 _last_print_len = 0 
 def reprint(msg, finish=False): 
     global _last_print_len 
@@ -14,5 +15,8 @@ def reprint(msg, finish=False):
          
         print(msg, end=end) 
 
-
-clear = lambda: os.system('clear')
+def clear():
+    if platform.system() == "Windows":
+        system('cls')
+    else:
+        system('clear')

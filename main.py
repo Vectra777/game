@@ -2,7 +2,7 @@ from player.player import *
 from ennemy.ennemy import *
 from random import *
 from time import sleep
-from reprint import *
+from reprint import (reprint,clear)
 import sys
 
 sys.path.insert(0,'global')

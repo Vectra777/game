@@ -1,6 +1,5 @@
 import sys
-sys.path.insert(0,'global')
-
+sys.path.append("global")
 from entity import *
 from reprint import *
 from time import sleep
@@ -26,6 +25,3 @@ class player (Entity):
         reprint("You losed to a mob (cringe.)")
         sleep(2)
         reprint("Anyway you lost, goodbye.")
-        
-bob = player("bob",100,0,0,1,[],0,1)
-bob.lose()
