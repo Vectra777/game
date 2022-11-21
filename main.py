@@ -14,7 +14,8 @@ start_rect = start.get_rect()
 
 
 while True:
-    start_rect.center
+    start_rect.x = 200
+    start_rect.y=200
     CLOCK.tick(60)
     mouse = pygame.mouse.get_pos()
     event = pygame.event.wait()
