@@ -3,7 +3,7 @@ sys.path.append("global")
 from reprint import reprint
 from ennemy import ennemy
 
-class werewolf(ennemy):
+class vampire(ennemy):
     def __init__(self, name:str, hp:int, xp:int, str:int):
         super().__init__(name, hp, xp, str)
     
