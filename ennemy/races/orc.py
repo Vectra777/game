@@ -1,4 +1,4 @@
-from ennemy import ennemy
+from ennemy.ennemy import ennemy
 import sys
 sys.path.append("global")
 from reprint import reprint

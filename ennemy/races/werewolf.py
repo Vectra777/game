@@ -1,5 +1,5 @@
 import sys
-from ennemy import ennemy
+from ennemy.ennemy import ennemy
 from time import sleep
 sys.path.append("global")
 from reprint import reprint

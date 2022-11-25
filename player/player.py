@@ -24,4 +24,3 @@ class player (Entity):
     def lose(self):
         reprint("You losed to a mob (cringe.)")
         sleep(2)
-        reprint("Anyway you lost, goodbye.")
