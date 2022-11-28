@@ -26,5 +26,7 @@ class elf(player):
         if randint(0,100) <=acc:
             reprint("nice shot!")
             entity.hp = entity.hp - self.str*2
+        else:
+            reprint("you missed!")
     
     

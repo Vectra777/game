@@ -49,9 +49,7 @@ def game():
             enemy = vampire("vampire",p1.lvl*0.5+12,8+(p1.lvl*10**-1),(p1.lvl*10**-1)+2)
         case 3:
             enemy = orc("orc",p1.lvl*0.5+20,8*(p1.lvl*10**-1)+10,(p1.lvl*10**-1)+3)
-    
-    reprint(f"The {enemy} appeared!")
-    reprint("""         _,.---''```````'-.
+    ORC="""             _,.---''```````'-.
                     ,-'`                  `-._
                  ,-`                   __,-``,\
                 /             _       /,'  ,|/ \
@@ -68,6 +66,13 @@ def game():
                   `,   |           /``V_,.--`  \.  _,-'`
                    /`--'`._        `-'`         )`'
                   /        `-.            _,.-'`
-                              `-.____,.-'`
-""")
-    print("What should you do ?")
+                              `-.____,.-'`"""
+    reprint(f"The {enemy} appeared!")
+    
+    print(f"{ORC}\nWhat should you do ?")
+    match p1.name:
+        case "elf":
+            clear()
+            choice = int(input("1: simple attack\n2: bow shot"))
+            if choice == 1:
+                p1.dmg(enemy)
