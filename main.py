@@ -76,3 +76,13 @@ def game():
             choice = int(input("1: simple attack\n2: bow shot"))
             if choice == 1:
                 p1.dmg(enemy)
+            elif choice == 2:
+                p1.bow_shot(enemy)
+        
+        case "knight":
+            choice = int(input("1: simple attack\n2: vertical slash"))
+            if choice == 1:
+                p1.dmg(enemy)
+            elif choice == 2:
+                p1.vertical_slash(enemy)
+            
