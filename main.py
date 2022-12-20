@@ -4,6 +4,7 @@ from ennemy import *
 from art import text2art
 from random import randint
 from time import sleep
+import sys
 
 title= text2art("MYTHIC    ADVENTURE",font='epic',chr_ignore=True)
 sub= text2art("tap 1 to play!",font="small",chr_ignore=True)
