@@ -1,4 +1,4 @@
-from reprint import *
+from time import sleep
 class Entity:
     def __init__(self,name:str,hp:int,xp:int,mana:int,str:int,xpmax:int,lvl:int):
         self.mana = mana
@@ -10,5 +10,7 @@ class Entity:
         self.lvl  = lvl
     
     def dmg(self,entity):
-        entity.hp = entity.hp-self.str
-        reprint(f"{entity.name} a pris {self.str} dégas !")
+        entity.hp = round(entity.hp-self.str,1)
+        sleep(1)
+        print(f"{entity.name} took {self.str} damages !\n")
+        sleep(2)

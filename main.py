@@ -1,35 +1,32 @@
-from random import randint
-import sys
-sys.path.append("global")
-sys.path.append("player")
-sys.path.append("ennemy")
-from reprint import *
+from globale import (reprint,clear,WEREWOLF,ORC,VAMPIRE,battle)
+from player import *
+from ennemy import *
 from art import text2art
-from role.knight import knight
-from role.elf import elf
-from role.sorcerer import sorcerer
-from ennemy.races.werewolf import werewolf
-from ennemy.races.orc import orc
-from ennemy.races.vampire import vampire
+from random import randint
+from time import sleep
 
 title= text2art("MYTHIC    ADVENTURE",font='epic',chr_ignore=True)
 sub= text2art("tap 1 to play!",font="small",chr_ignore=True)
+clear()
+
 reprint(title)
 print(f"{sub}\n")
 play = int(input(""))
+
 inventory = [0,0,0,0,0,0,0,0,0,0] 
+
 def start():
     clear()
-    name = str(input("what's your name ?: "))
-    reprint(text2art("CHOOSE YOUR CHARACTER",font="small",chr_ignore=True))
+    pname = input("What's your name?: ")
+    print(text2art("CHOOSE YOUR CHARACTER",font="small",chr_ignore=True))
     classes =  int(input("classes:\n1:knight\n2:elf\n3:sorcerer\n"))
     match classes:
         case 1:
-            return knight(name,100,0,3,inventory,100,1)
+            return knight("knight",100,0,0,3,inventory,100,1,pname)
         case 2:
-            return elf(name,90,0,20,2,inventory,100,1)
+            return elf("elf",90,0,20,2,inventory,100,1,pname)
         case 3:
-            return sorcerer(name,100,0,50,1,inventory,100,1)
+            return sorcerer("sorcerer",100,0,50,1,inventory,100,1,pname)
         case _:
             reprint("It's not a class !")
             start()
@@ -41,48 +38,30 @@ else:
     sys.exit()
     
 def game():
-    reprint(text2art("READY? GO!",font="3D Diagonal",chr_ignore=True))
-    match randint(0,3):
-        case 1:
-            enemy = werewolf("werewolf",p1.lvl*0.5+10,(p1.lvl*10**-1)+7,(p1.lvl*10**-1)+3)
-        case 2:
-            enemy = vampire("vampire",p1.lvl*0.5+12,8+(p1.lvl*10**-1),(p1.lvl*10**-1)+2)
-        case 3:
-            enemy = orc("orc",p1.lvl*0.5+20,8*(p1.lvl*10**-1)+10,(p1.lvl*10**-1)+3)
-    ORC="""             _,.---''```````'-.
-                    ,-'`                  `-._
-                 ,-`                   __,-``,\
-                /             _       /,'  ,|/ \
-              ,'         ,''-<_`'.    |  ,' |   \
-             /          / _    `  `.  | / \ |\  |
-             |         (  |`'-,---, `'  \_|/ |  |
-             |         |`  \  \|  /  __,    _ \ |
-             |         |    `._\,'  '    ,-`_\ \|
-             |         |        ,----      /|   )
-             \         \       / --.      {/   /|
-              \         | |       `.\         / |
-               \        / `-.                 | /
-                `.     |     `-        _,--V`)\/        _,-
-                  `,   |           /``V_,.--`  \.  _,-'`
-                   /`--'`._        `-'`         )`'
-                  /        `-.            _,.-'`
-                              `-.____,.-'`"""
-    reprint(f"The {enemy} appeared!")
+    clear()
+    print(text2art("READY?     GO!",font="3D Diagonal",chr_ignore=True))
+    sleep(1.5)
+    match randint(1,3):
+                case 1:
+                    enemy = werewolf("werewolf",p1.lvl*0.5+10,(p1.lvl*10**-1)+7,0,(p1.lvl*10**-1),0,1)
+                    img=WEREWOLF
+                case 2:
+                    enemy = vampire("vampire",p1.lvl*0.5+12,8+(p1.lvl*10**-1),0,(p1.lvl*10**-1)+3,0,1)
+                    img=VAMPIRE
+                case 3:
+                    enemy = orc("orc",p1.lvl*0.5+20,8*(p1.lvl*10**-1)+10,0,(p1.lvl*10**-1)+3,0,1)
+                    img=ORC
+                    
+    battle(enemy,img,p1)
     
-    print(f"{ORC}\nWhat should you do ?")
-    match p1.name:
-        case "elf":
-            clear()
-            choice = int(input("1: simple attack\n2: bow shot"))
-            if choice == 1:
-                p1.dmg(enemy)
-            elif choice == 2:
-                p1.bow_shot(enemy)
-        
-        case "knight":
-            choice = int(input("1: simple attack\n2: vertical slash"))
-            if choice == 1:
-                p1.dmg(enemy)
-            elif choice == 2:
-                p1.vertical_slash(enemy)
-            
+    if int(input("Do you want to play again?\n1:Yes\n2:No\n")) == 1:
+            game()
+    else:
+        save = open("save.txt","w")
+        xp_str=str(p1.xp)
+        save.writelines(["xp = "+ xp_str + "\n",])
+        save.close()
+        clear()
+        print("Ok Bye!")
+        sleep(2.5)
+game()
