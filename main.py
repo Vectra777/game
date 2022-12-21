@@ -14,13 +14,47 @@ reprint(title)
 print(f"{sub}\n")
 play = int(input(""))
 
-inventory = [0,0,0,0,0,0,0,0,0,0] 
+inventory = [0,0,0,0,0,0,0,0,0,0]
+sword=r"""
+      /| ________________
+O|===|* >________________>
+      \|
+"""
+
+bow=r"""
+   (
+    \
+     )
+##-------->
+     )
+    /
+   (
+"""
+
+wand = r"""
+                  .
+
+                   .
+         /^\     .
+    /\   "V"
+   /__\   I      O  o
+  //..\\  I     .
+  \].`[/  I
+  /l\/j\  (]    .  O
+ /. ~~ ,\/I          .
+ \\L__j^\/I       o
+  \/--v}  I     o   .
+  |    |  I   _________
+  |    |  I c(`       ')o
+  |    l  I   \.     ,/
+_/j  L l\_!  _//^---^\\_ 
+"""
 
 def start():
     clear()
     pname = input("What's your name?: ")
     print(text2art("CHOOSE YOUR CHARACTER",font="small",chr_ignore=True))
-    classes =  int(input("classes:\n1:knight\n2:elf\n3:sorcerer\n"))
+    classes =  int(input(f"{sword}\n1:knight \n\n     {bow}\n2:elf \n      {wand}\n3:sorcerer\n\nchoice:"))
     match classes:
         case 1:
             return knight("knight",100,0,0,3,inventory,100,1,pname)
