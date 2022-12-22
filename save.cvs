@@ -1,0 +1,9 @@
+data_type,data
+xp,16.2
+class,elf
+mana,20.0
+power,2.0
+inv,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]"
+xpmax,100.0
+pname,deez
+lvl,1.0

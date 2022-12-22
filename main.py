@@ -5,6 +5,8 @@ from art import text2art
 from random import randint
 from time import sleep
 import sys
+import pandas as pd
+import ast
 
 title= text2art("MYTHIC    ADVENTURE",font='epic',chr_ignore=True)
 sub= text2art("tap 1 to play!",font="small",chr_ignore=True)
@@ -52,19 +54,30 @@ _/j  L l\_!  _//^---^\\_
 
 def start():
     clear()
-    pname = input("What's your name?: ")
-    print(text2art("CHOOSE YOUR CHARACTER",font="small",chr_ignore=True))
-    classes =  int(input(f"{sword}\n1:knight \n\n     {bow}\n2:elf \n      {wand}\n3:sorcerer\n\nchoice:"))
-    match classes:
-        case 1:
-            return knight("knight",100,0,0,3,inventory,100,1,pname)
-        case 2:
-            return elf("elf",90,0,20,2,inventory,100,1,pname)
-        case 3:
-            return sorcerer("sorcerer",100,0,50,1,inventory,100,1,pname)
-        case _:
-            reprint("It's not a class !")
-            start()
+    if int(input("Would you like to continue the adventure or create a new profile ?\nContinue: 1\nNew profile: 2\n"))== 2:
+        pname = input("What's your name?: ")
+        print(text2art("CHOOSE YOUR CHARACTER",font="small",chr_ignore=True))
+        classes =  int(input(f"{sword}\n1:knight \n\n     {bow}\n2:elf \n      {wand}\n3:sorcerer\n\nchoice:"))
+        match classes:
+            case 1:
+                return knight("knight",100,0,0,3,inventory,100,1,pname)
+            case 2:
+                return elf("elf",90,0,20,2,inventory,100,1,pname)
+            case 3:
+                return sorcerer("sorcerer",100,0,50,1,inventory,100,1,pname)
+            case _:
+                reprint("It's not a class !")
+                start()
+    else:
+        saves= pd.read_csv("save.cvs",skipinitialspace=True)
+        
+        match saves.iloc[1]["data"]:
+            case "elf":
+                return elf("elf",90,float(saves.iloc[0]["data"]),float(saves.iloc[2]["data"]),float(saves.iloc[3]["data"]),ast.literal_eval(saves.iloc[4]["data"]),float(saves.iloc[5]["data"]),float(saves.iloc[7]["data"]),saves.iloc[6]["data"])
+            case "knight":
+                return knight("knight",100,float(saves.iloc[0]["data"]),float(saves.iloc[2]["data"]),float(saves.iloc[3]["data"]),ast.literal_eval(saves.iloc[4]["data"]),float(saves.iloc[5]["data"]),float(saves.iloc[7]["data"]),saves.iloc[6]["data"])
+            case "sorcerer":
+                return sorcerer("sorcerer",100,float(saves.iloc[0]["data"]),float(saves.iloc[2]["data"]),float(saves.iloc[3]["data"]),ast.literal_eval(saves.iloc[4]["data"]),float(saves.iloc[5]["data"]),float(saves.iloc[7]["data"]),saves.iloc[6]["data"])
 
 if play == 1:
     p1 = start()
@@ -92,10 +105,11 @@ def game():
     if int(input("Do you want to play again?\n1:Yes\n2:No\n")) == 1:
             game()
     else:
-        save = open("save.txt","w")
-        xp_str=str(p1.xp)
-        save.writelines(["xp = "+ xp_str + "\n",])
-        save.close()
+        save = pd.DataFrame({
+            "data_type":["xp","class","mana","power","inv","xpmax","pname","lvl"],
+            "data":[p1.xp,p1.name,p1.mana,p1.str,p1.inv,p1.xpmax,p1.pname,p1.lvl]
+        })
+        save.to_csv("save.cvs",index=False)
         clear()
         print("Ok Bye!")
         sleep(2.5)
